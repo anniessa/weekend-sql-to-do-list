@@ -4,13 +4,15 @@ $(document).ready(function() {
     console.log('jQuery sourced');
 
     $(document).on('click', '#addButton', addTask);
+    $(document).on('click', 'li', taskComplete);
+    $(document).on('click', '.deleteBtn', deleteTask);
 
     getTask();
 });
 
 function addTask() {
     let taskToSend = {
-        title: $('#addTask').val(),
+        task: $('#addTask').val(),
         notes: $('#addNotes').val(),
         date: $('#addDueDate').val(),
         completed: false,
@@ -59,15 +61,51 @@ function getTask() {
     });
 }
 
+function taskComplete() {
+    let id = $(this).data('id');
+    let isCompleted = $(this).data('completed');
+    console.log(isCompleted);
+
+    $.ajax({
+        method: 'PUT',
+        url: `/tasks/${id}`,
+        data: {completed: !isCompleted}
+    })
+    .then((response) => {
+        console.log(response);
+        getTask();
+    })
+    .catch((error) => {
+        console.log(error);
+    });  
+}
+
+function deleteTask() {
+    let id = $(this).parents('li').data('id');
+    $.ajax({
+        method: 'DELETE',
+        url: `/tasks/${id}`
+    })
+    .then((response) => {
+        console.log('Deleted task', id);
+        getTask();
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+}
+
 
 function render(tasks) {
+    $('#taskList').empty();
 
     for (let task of tasks) {
+        let taskIsComplete = task.completed ? '✅' : 'Not Complete ';
+        console.log(taskIsComplete); 
         $('#taskList').append(
       `<ul>
-        <li data-id=${task.id}><button data-completed=${task.completed}> ⚪ </button>
-        ${task.title} ${task.notes} ${task.date}</li>
-        <input class='cancel-btn' type='button' value='❌'>
+        <li class="newTask" data-id=${task.id} data-completed=${task.completed}>
+        ${taskIsComplete} ${task.task} ${task.notes} ${task.date} <input class='deleteBtn' type='button' value='Delete ❌'></li>
       </ul>`
         )  
     };
