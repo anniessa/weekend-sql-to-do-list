@@ -70,6 +70,8 @@ h2 {
     text-align: center; 
 }
 
+
+
 .tableHead {
     color: #d9ed92;
 }
@@ -80,10 +82,14 @@ h2 {
     justify-content: space-between;
     border: 1px solid #939697;
     cursor: pointer;
-    background-color: #c5e1e6;
+    background-color: #7ed89e;
     height: 50px;
     margin-bottom: 8px;
     padding: 5px 10px;
+}
+
+.taskComplete:nth-child(odd){
+    background-color: #ffffff;
 }
 
 .taskComplete:hover {
