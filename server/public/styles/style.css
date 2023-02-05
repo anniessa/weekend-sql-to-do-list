@@ -1,3 +1,124 @@
+
 body {
-    background-color: lemonchiffon;
+    background-color: #184e77 ;
+    font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
 }
+
+h2 {
+    text-align: center; 
+    color: #d9ed92; 
+}
+
+.container{
+    width: 60%;
+    top: 70%;
+    left: 60%;
+    background: #34a0a4;
+    border-radius: 10px;
+    min-width: 450px;
+    position: absolute;
+    min-height: 200px;
+    transform: translate(-50%,-50%);
+}
+
+#newTask{
+    position: relative;
+    padding: 30px 20px;
+}
+
+#newTask input{
+    width: 60%;
+    height: 40px;
+    padding: 12px;
+    color: #111111;
+    font-weight: 500;
+    position: relative;
+    border-radius: 5px;
+    font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+    font-size: 15px;
+    text-align: center;
+    border: 2px solid #d1d3d4;
+}
+
+#newTask button{
+    position: relative;
+    float: right;
+    font-weight: 500;
+    font-size: 16px;
+    background-color: #184e77;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    outline: none;
+    width: 20%;
+    height: 40px;
+    border-radius: 5px;
+    font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+}
+
+#addButton:hover{
+    background-color: #99d98c;
+}
+
+#tasks{
+    border-radius: 10px;
+    width: 100%;
+    position: relative;
+    background-color: #184e77;
+    padding: 30px 20px;
+    margin-top: 10px;
+    text-align: center; 
+}
+
+.tableHead {
+    color: #d9ed92;
+}
+
+.taskComplete{
+    border-radius: 5px;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #939697;
+    cursor: pointer;
+    background-color: #c5e1e6;
+    height: 50px;
+    margin-bottom: 8px;
+    padding: 5px 10px;
+}
+
+.taskComplete:hover {
+    background-color: #7e8b8e; 
+}
+
+.backgroundChange {
+    background-color: #7e8b8e !important; 
+    color: #fff;
+    text-decoration: line-through;
+}
+
+table, tr, td, th{
+    padding: 10px;
+    margin: auto;
+    border: none;
+    border-collapse: collapse;
+    }   
+
+
+
+.deleteBtn {
+    background-color: #34a0a4; 
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    height: 100%;
+    width: 100px;
+    border-radius: 5px;
+    }
+
+.deleteBtn:hover {
+    background-color: #f94144;
+
+}
+
+

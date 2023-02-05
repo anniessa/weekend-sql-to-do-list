@@ -10,21 +10,33 @@
     <title>TO DO APPLICATION</title>
 </head>
 <body>
-    <h2>TO DO APPLICATION</h2>
-
-    <section id="taskSection">
+        <h2>TO DO APPLICATION</h2>
+    
+    <div class="container">
         <h2>Add A Task 📋</h2>
-        <input type="text" id="addTask" value="" placeholder="Task" />
-        <input type="date" id="addDate" value="" placeholder="Due Date" />
-        <button type="button" id="addButton">Add Task</button>
-    </section>
+        <div id="newTask">
+            <input type="text" id="addTask" value="" placeholder="Task" />
+            <input type="date" id="addDate"/>
+            <input type="time" id="addTime"/>
+            <button type="button" id="addButton">Add Task</button>
+        </div>
+    </div>
+    
+    <div id="tasks">
+    <h2>Upcoming Tasks</h2>
+    <table>
+        <th class="tableHead">Completed?</th>
+        <th class="tableHead">Task</th>
+        <th class="tableHead">Due Date</th>
+        <th class="tableHead">Time Due</th>
 
-    <section id="upcomingTasksSection">
-        <h2>Upcoming Tasks</h2>
-        <table id="taskList">
-
-        </table>
-    </section>
+        <tbody id="taskList">
+            
+        </tbody>
+        
+        
+    </table>
+    </div>
     
 </body>
 </html>

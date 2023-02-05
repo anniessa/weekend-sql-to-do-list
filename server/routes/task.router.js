@@ -6,16 +6,16 @@ const pool = require('../modules/pool');
 router.post('/', (req,res) => {
     const newTask = req.body;
     const queryText = `
-    INSERT INTO "tasks" ("task", "date", "completed")
-    VALUES ($1, $2, $3);`;
+    INSERT INTO "tasks" ("task", "date", "time", "completed")
+    VALUES ($1, $2, $3, $4);`;
     const queryParams = [
         newTask.task,
         newTask.date,
+        newTask.time,
         newTask.completed
     ]
     pool.query(queryText, queryParams)
     .then((result) => {
-        console.log("new task results:", result);
         res.sendStatus(201);
     })
     .catch((error) => {
@@ -26,7 +26,7 @@ router.post('/', (req,res) => {
 
 
 router.get('/', (req,res) => {
-    let queryText = `SELECT * FROM "tasks";`;
+    let queryText = `SELECT * FROM "tasks" ORDER BY "id" ASC;`;
     pool.query(queryText)
     .then((result)=> {
         res.send((result.rows))
@@ -34,6 +34,21 @@ router.get('/', (req,res) => {
     .catch((error) => {
         console.log(`Error making queryText: ${queryText}`, error);
         res.sendStatus(500);
+    });
+});
+
+router.put('/:id', (req,res) => {
+    let queryText = `
+    UPDATE "tasks"
+    SET "completed" = $1
+    WHERE "id"=$2;`;
+    let queryParams = [req.body.completed, req.params.id];
+    pool.query(queryText, queryParams)
+    .then((dbRes) => {
+        res.sendStatus(200);
+    })
+    .catch((error) => {
+        console.log('PUT /tasks/:id failed', error);
     });
 });
 
