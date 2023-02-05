@@ -18,7 +18,7 @@ function addTask() {
         time: $('#addTime').val(),
         completed: false,
     };
-
+    
     if (
         $('#addTask').val() == "" ||
         $('#addDate').val() == "" ||
@@ -78,10 +78,41 @@ function addTask() {
             console.log(error);
         })  
     }
-    
+    // tried to do the SweetAlert functionality below
+
+    // function sweetAlert() {
+    //     let id = $(this).parents('tr').data('id'); 
+    //     swal({
+    //         title: "Are you sure you want to delete this task?",
+    //         text: "There's no turning back!",
+    //         icon: "warning",
+    //         buttons: true,
+    //         dangerMode: true,
+    //         closeOnConfirm: false,
+    //         closeOnCancel: false
+    //     }), function(isConfirm) {
+    //         if (!isConfirm) return; 
+    //             $.ajax({
+    //                 method: 'DELETE',
+    //                 url: `/tasks/${id}`,
+    //                 success: function() {
+    //                     swal("Your task has been deleted FOR.EV.ER.", "success");
+    //                     }
+    //                     .then((response) => {
+    //                         console.log('Deleted task', id);
+    //                         getTask();
+    //                     })
+    //                     .catch((error) => {
+    //                         console.log(error);
+    //                         swal ("Your task was not deleted.")
+    //                     })   
+    //                 })
+    //             }
+    //         }
     
     function deleteTask() {
         let id = $(this).parents('tr').data('id');
+        
         $.ajax({
             method: 'DELETE',
             url: `/tasks/${id}`
@@ -92,9 +123,9 @@ function addTask() {
         })
         .catch((error) => {
             console.log(error);
-        });
+        });    
     }
-
+    
     // tasks parameter is an array of object sent from the database
     function render(tasks) {
         $('#taskList').empty();
@@ -102,19 +133,19 @@ function addTask() {
         for (let task of tasks) {
             const dateReformat = new Date(task.date).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
             let taskComplete = task.completed ? '✅' : '⬜';
-
+            
             $('#taskList').append(`
             <tr class="taskComplete" id="row-${task.id}" data-id="${task.id}" data-completed="${task.completed}">
-                <td>${taskComplete}</td>
-                <td>${task.task}</td>
-                <td>${dateReformat}</td>
-                <td>${task.time}</td>
-                <td>
-                    <input class='deleteBtn' type='button' value='Delete Task'>
-                </td>
+            <td>${taskComplete}</td>
+            <td>${task.task}</td>
+            <td>${dateReformat}</td>
+            <td>${task.time}</td>
+            <td>
+            <input class='deleteBtn' type='button' value='Delete Task'>
+            </td>
             </tr>
             `) 
-
+            
             if (task.completed == true) {
                 $(`#row-${task.id}`).addClass('backgroundChange');
             } else {
