@@ -6,11 +6,10 @@ const pool = require('../modules/pool');
 router.post('/', (req,res) => {
     const newTask = req.body;
     const queryText = `
-    INSERT INTO "tasks" ("task", "notes", "date", "completed")
-    VALUES ($1, $2, $3, $4);`;
+    INSERT INTO "tasks" ("task", "date", "completed")
+    VALUES ($1, $2, $3);`;
     const queryParams = [
         newTask.task,
-        newTask.notes,
         newTask.date,
         newTask.completed
     ]
@@ -37,24 +36,6 @@ router.get('/', (req,res) => {
         res.sendStatus(500);
     });
 });
-
-router.put('/:id', (req,res) => {
-    const queryText = `
-    UPDATE "tasks"
-    SET "completed"=$1
-    WHERE "id"=$2;
-    `;
-    const queryParams = [req.body.completed, req.params.id];
-    pool.query(queryText, queryParams)
-    console.log(queryText, queryParams)
-    .then((dbRes) => {
-        res.sendStatus(200);
-    })
-    .catch((error) => {
-        console.log('PUT /tasks/:id failed', error);
-    });
-});
-
 
 
 router.delete('/:id', (req,res) => {

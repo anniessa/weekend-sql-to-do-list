@@ -4,7 +4,6 @@ $(document).ready(function() {
     console.log('jQuery sourced');
 
     $(document).on('click', '#addButton', addTask);
-    $(document).on('click', 'li', taskComplete);
     $(document).on('click', '.deleteBtn', deleteTask);
 
     getTask();
@@ -13,19 +12,16 @@ $(document).ready(function() {
 function addTask() {
     let taskToSend = {
         task: $('#addTask').val(),
-        notes: $('#addNotes').val(),
-        date: $('#addDueDate').val(),
+        date: $('#addDate').val(),
         completed: false,
     };
     if (
         $('#addTitle').val() == "" ||
-        $('#addNotes').val() == "" ||
         $('#addDueDate').val() == ""
     ) {
         alert("All fields required.");
     } else {
         $('#addTitle').val(""),
-        $('#addNotes').val(""),
         $('#addDueDate').val("")
     };
     saveTask(taskToSend);
@@ -61,27 +57,8 @@ function getTask() {
     });
 }
 
-function taskComplete() {
-    let id = $(this).data('id');
-    let isCompleted = $(this).data('completed');
-    console.log(isCompleted);
-
-    $.ajax({
-        method: 'PUT',
-        url: `/tasks/${id}`,
-        data: {completed: !isCompleted}
-    })
-    .then((response) => {
-        console.log(response);
-        getTask();
-    })
-    .catch((error) => {
-        console.log(error);
-    });  
-}
-
 function deleteTask() {
-    let id = $(this).parents('li').data('id');
+    let id = $(this).parents('tr').data('id');
     $.ajax({
         method: 'DELETE',
         url: `/tasks/${id}`
@@ -100,13 +77,16 @@ function render(tasks) {
     $('#taskList').empty();
 
     for (let task of tasks) {
-        let taskIsComplete = task.completed ? '✅' : 'Not Complete ';
-        console.log(taskIsComplete); 
-        $('#taskList').append(
-      `<ul>
-        <li class="newTask" data-id=${task.id} data-completed=${task.completed}>
-        ${taskIsComplete} ${task.task} ${task.notes} ${task.date} <input class='deleteBtn' type='button' value='Delete ❌'></li>
-      </ul>`
-        )  
+
+        $('#taskList').append(`
+      <tr data-id="${task.id}">
+        <td>${task.task}</td>
+        <td>${task.date}</td>
+        <td>
+            <input class='deleteBtn' type='button' value='Delete ❌'>
+        </td>
+      </tr>
+    `)
     };
 }
+  
