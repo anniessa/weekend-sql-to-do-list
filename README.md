@@ -2,8 +2,9 @@
 
 ## Description
 
-This is a 
-To see the fully functional site, please visit: [DEPLOYED VERSION OF APP](www.heroku.com)
+Need to remember tasks and when to do them? This is a simple app to help you stay on track!
+
+To see the fully functional site, please visit: [COMING SOON](www.heroku.com)
 
 ## Screen Shot
 
