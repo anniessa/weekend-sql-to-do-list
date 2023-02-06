@@ -5,7 +5,7 @@ $(document).ready(function() {
     
     $(document).on('click', '#addButton', addTask);
     $(document).on('click', '.taskComplete', taskComplete);
-    $(document).on('click', '.deleteBtn', deleteTask);
+    $(document).on('click', '.deleteBtn', sweetAlert);
     
     getTask();
 });
@@ -79,52 +79,50 @@ function addTask() {
         })  
     }
     // tried to do the SweetAlert functionality below
-
-    // function sweetAlert() {
-    //     let id = $(this).parents('tr').data('id'); 
-    //     swal({
-    //         title: "Are you sure you want to delete this task?",
-    //         text: "There's no turning back!",
-    //         icon: "warning",
-    //         buttons: true,
-    //         dangerMode: true,
-    //         closeOnConfirm: false,
-    //         closeOnCancel: false
-    //     }), function(isConfirm) {
-    //         if (!isConfirm) return; 
-    //             $.ajax({
-    //                 method: 'DELETE',
-    //                 url: `/tasks/${id}`,
-    //                 success: function() {
-    //                     swal("Your task has been deleted FOR.EV.ER.", "success");
-    //                     }
-    //                     .then((response) => {
-    //                         console.log('Deleted task', id);
-    //                         getTask();
-    //                     })
-    //                     .catch((error) => {
-    //                         console.log(error);
-    //                         swal ("Your task was not deleted.")
-    //                     })   
-    //                 })
-    //             }
-    //         }
     
-    function deleteTask() {
-        let id = $(this).parents('tr').data('id');
-        
-        $.ajax({
-            method: 'DELETE',
-            url: `/tasks/${id}`
+    function sweetAlert() {
+        let id = $(this).parents('tr').data('id'); 
+        swal({
+            title: "Are you sure you want to delete this task?",
+            text: "There's no turning back!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            closeOnConfirm: false,
+            closeOnCancel: false
+        }) .then((response) => {
+            if (!response.ok) {
+                $.ajax({
+                    method: 'DELETE',
+                    url: `/tasks/${id}`
+                })
+                .then((response) => {
+                    console.log('Deleted task', id);
+                    getTask();
+                })
+                .catch((error) => {
+                    console.log(error);
+                }) 
+            } 
         })
-        .then((response) => {
-            console.log('Deleted task', id);
-            getTask();
-        })
-        .catch((error) => {
-            console.log(error);
-        });    
-    }
+    };
+    
+    
+    // function deleteTask() {
+    //     let id = $(this).parents('tr').data('id');
+    
+    //     $.ajax({
+    //         method: 'DELETE',
+    //         url: `/tasks/${id}`
+    //     })
+    //     .then((response) => {
+    //         console.log('Deleted task', id);
+    //         getTask();
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     });    
+    // }
     
     // tasks parameter is an array of object sent from the database
     function render(tasks) {
