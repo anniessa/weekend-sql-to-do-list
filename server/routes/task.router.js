@@ -26,7 +26,7 @@ router.post('/', (req,res) => {
 
 
 router.get('/', (req,res) => {
-    let queryText = `SELECT * FROM "tasks" ORDER BY "id" ASC;`;
+    let queryText = `SELECT * FROM "tasks" ORDER BY "completed" ASC;`;
     pool.query(queryText)
     .then((result)=> {
         res.send((result.rows))
