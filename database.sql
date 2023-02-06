@@ -6,6 +6,3 @@ CREATE TABLE "tasks" (
 	"completed" boolean not null
 
 );
-
-INSERT INTO "tasks" ("task", "date", "time", "completed")
-VALUES ('Sample Task', '2023-02-04', '4:30', false)
